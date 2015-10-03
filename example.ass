@@ -1,0 +1,99 @@
+"### test ###" {
+  text.md {
+    heading.md {
+      heading-3.md {
+        '###': punctuation.md
+        ' '
+        'test'
+        ' '
+        '###': punctuation.md
+      }
+    }
+  }
+}
+
+'# foo *bar* \*baz\*' {
+  text.md {
+    heading.md {
+      heading-1.md {
+        '#': punctuation.md
+        ' '
+        'foo '
+        emphasis.md {
+          '*': punctuation.md
+          'bar'
+          '*': punctuation.md
+        }
+      ' '
+      '\*': escape.constant.md
+      'baz'
+      '\*': escape.constant.md
+      }
+    }
+  }
+}
+
+# http://spec.commonmark.org/0.22/#example-178
+#
+# > # Foo
+# > bar
+# > baz
+"> # Foo\n> bar\n> baz" {
+  text.md {
+    quote.md {
+      '>': punctuation.md
+      ' '
+      heading.md {
+        heading-1.md {
+          '#': punctuation.md
+          ' '
+          'Foo'
+        }
+      }
+    }
+    quote.md {
+      '>': punctuation.md
+      ' '
+      'bar'
+    }
+    quote.md {
+      '>': punctuation.md
+      ' '
+      'baz'
+    }
+  }
+}
+
+"> # Foo"+
+"> bar"+
+"> baz" {
+  text.md {
+    quote.md {
+      '>': punctuation.md
+      ' '
+      heading.md {
+        heading-1.md {
+          '#': punctuation.md
+          ' '
+          'Foo'
+        }
+      }
+      '>': punctuation.md
+      ' '
+      'bar'
+      '>': punctuation.md
+      ' '
+      'baz'
+    }
+  }
+}
+
+# http://spec.commonmark.org/0.22/#example-8
+"---" {
+  text.md {
+    '---': hr.md
+  }
+}
+# TODO
+# Shortened form:
+# "---": text.md, hr.md

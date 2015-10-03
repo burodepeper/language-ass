@@ -1,0 +1,92 @@
+name: 'Awesome Scope Specs'
+scopeName: 'source.ass'
+fileTypes: [
+  'ass'
+]
+
+patterns: [
+  {
+    match: '^\\s*(#).*$'
+    name: 'comment.ass'
+    captures:
+      1: name: 'punctuation.ass'
+  }
+  {
+    match: '^((@)[a-zA-Z0-9_\\-\\.]+)$'
+    name: 'id.ass'
+    captures:
+      2: name: 'punctuation.ass'
+  }
+  {
+    match: '^((["\'])([^\\2]+)(\\2))\\s?(\\+)$'
+    captures:
+      1: name: 'input.ass'
+      2: name: 'punctuation.ass'
+      3: name: 'value.ass'
+      4: name: 'punctuation.ass'
+      5: name: 'punctuation.ass'
+  }
+  {
+    begin: '^((["\'])([^\\2]+)(\\2))\\s?(\\{)$'
+    end: '^(\\})\\s*$'
+    beginCaptures:
+      1: name: 'input.ass'
+      2: name: 'punctuation.ass'
+      3:
+        name: 'value.ass'
+        patterns: [
+          {
+            match: '\\\\.'
+            name: 'escape.constant.ass'
+          }
+        ]
+      4: name: 'punctuation.ass'
+      5: name: 'punctuation.ass'
+    endCaptures:
+      1: name: 'punctuation.ass'
+    patterns: [
+      { include: '#scopes' }
+      { include: '#values' }
+    ]
+  }
+]
+
+repository:
+  scopes:
+    patterns: [
+      {
+        begin: '^(\\s+)(([a-z0-9\\.\\-]+)(\\.[a-z]+))\\s?(\\{)$'
+        end: '^(\\1)(\\})$'
+        beginCaptures:
+          2: name: 'scope.ass'
+          4: name: 'domain.ass'
+          5: name: 'punctuation.ass'
+        endCaptures:
+          2: name: 'punctuation.ass'
+        patterns: [
+          { include: '#scopes' }
+          { include: '#values' }
+        ]
+      }
+    ]
+  values:
+    patterns: [
+      {
+        match: '^\\s+((["\'])([^\\2]+)(\\2))(?:(:)\\s?(([a-z0-9\\.\\-]+)(\\.[a-z]+)))?$'
+        captures:
+          1: name: 'input.ass'
+          2: name: 'punctuation.ass'
+          3:
+            name: 'value.ass'
+            patterns: [
+              {
+                match: '\\\\.'
+                name: 'escape.constant.ass'
+              }
+            ]
+          4: name: 'punctuation.ass'
+          5: name: 'punctuation.ass'
+          6: name: 'scope.ass'
+          8: name: 'domain.ass'
+      }
+    ]
