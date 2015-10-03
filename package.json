@@ -1,7 +1,7 @@
 {
   "name": "language-ass",
   "version": "0.0.1",
-  "description": "Syntax highlighting for Advanced Scope Specs",
+  "description": "Syntax highlighting for Agile Scope Syntax `.ass` files",
   "repository": "https://github.com/burodepeper/language-ass",
   "bugs": {
     "url": "https://github.com/burodepeper/language-ass/issues"
