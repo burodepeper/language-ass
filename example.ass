@@ -97,3 +97,40 @@
 # TODO
 # Shortened form:
 # "---": text.md, hr.md
+
+@sentence
+"This is a sentence." {
+  english.text {
+    sentence {
+      "This": subject
+      " "
+      "is": verb
+      " "
+      object {
+        "a": article
+        " "
+        "sentence": noun
+      }
+      ".": punctuation
+    }
+  }
+}
+
+@greek-list
+"- alpha"+
+"- beta"+
+"- gamma" {
+  text.md {
+    unordered.list.markup.md {
+      "-": punctuation.md
+      " "
+      "alpha"
+      "-": punctuation.md
+      " "
+      "beta"
+      "-": punctuation.md
+      " "
+      "gamma"
+    }
+  }
+}
