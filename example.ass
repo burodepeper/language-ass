@@ -1,3 +1,68 @@
+@123
+"test"+
+"_emphasis **strong**_" {
+  markdown {
+    text {
+      "test"
+      emphasis {
+        "_": punctuation
+        "emphasis "
+        strong.emphasis {
+          "**": punctuation
+          "strong"
+          "**": punctuation
+        }
+        "_": punctuation
+      }
+    }
+  }
+}
+
+# NOTE something, something
+@470
+"[![moon](moon.jpg)](/uri)" {
+  text.md {
+    link.markup.md {
+      text.link.string.md {
+        "[": punctuation.md
+
+        # the image
+        "![moon](moon.jpg)" {
+          image.link.markup.md {
+            "!": punctuation.md
+            text.link.string.md {
+              "[": punctuation.md
+              "moon"
+              "]": punctuation.md
+            }
+            "(": punctuation.md
+            destination.link.md {
+              "/uri": uri.underline.link.md
+            }
+            ")": punctuation.md
+          }
+        }
+
+        "]": punctuation.md
+      }
+      "(": punctuation.md
+      destination.link.md {
+        "/uri": uri.underline.link.md
+      }
+      ")": punctuation.md
+    }
+  }
+}
+
+@test
+"test": text.md
+
+"- alpha"+
+"- beta"+
+"- gamma" {
+
+}
+
 "### test ###" {
   text.md {
     heading.md {
