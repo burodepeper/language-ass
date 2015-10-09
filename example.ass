@@ -57,12 +57,6 @@
 @test
 "test": text.md
 
-"- alpha"+
-"- beta"+
-"- gamma" {
-
-}
-
 "### test ###" {
   text.md {
     heading.md {
