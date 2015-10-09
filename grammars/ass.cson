@@ -5,88 +5,102 @@ fileTypes: [
 ]
 
 patterns: [
-  {
-    match: '^\\s*(#).*$'
-    name: 'comment.ass'
-    captures:
-      1: name: 'punctuation.ass'
-  }
-  {
-    match: '^((@)[a-zA-Z0-9_\\-\\.]+)$'
-    name: 'id.ass'
-    captures:
-      2: name: 'punctuation.ass'
-  }
-  {
-    match: '^((["\'])([^\\2]+)(\\2))\\s?(\\+)$'
-    captures:
-      1: name: 'input.ass'
-      2: name: 'punctuation.ass'
-      3: name: 'value.ass'
-      4: name: 'punctuation.ass'
-      5: name: 'punctuation.ass'
-  }
-  {
-    begin: '^((["\'])([^\\2]+)(\\2))\\s?(\\{)$'
-    end: '^(\\})\\s*$'
-    beginCaptures:
-      1: name: 'input.ass'
-      2: name: 'punctuation.ass'
-      3:
-        name: 'value.ass'
-        patterns: [
-          {
-            match: '\\\\.'
-            name: 'escape.constant.ass'
-          }
-        ]
-      4: name: 'punctuation.ass'
-      5: name: 'punctuation.ass'
-    endCaptures:
-      1: name: 'punctuation.ass'
-    patterns: [
-      { include: '#scopes' }
-      { include: '#values' }
-    ]
-  }
+  { include: '#comment' }
+  { include: '#id' }
+  { include: '#input' }
+  { include: '#token-and-scope' }
 ]
 
 repository:
-  scopes:
+
+  comment:
     patterns: [
       {
-        begin: '^(\\s+)(([a-z0-9\\.\\-]+)(\\.[a-z]+))\\s?(\\{)$'
-        end: '^(\\1)(\\})$'
-        beginCaptures:
-          2: name: 'scope.ass'
-          4: name: 'domain.ass'
-          5: name: 'punctuation.ass'
-        endCaptures:
+        match: '^\\s*(#).*$'
+        name: 'comment.ass'
+        captures:
+          1: name: 'punctuation.ass'
+      }
+    ]
+
+  group:
+    patterns: [
+      { include: '#comment' }
+      { include: '#input' }
+      { include: '#scope-and-group' }
+      { include: '#token' }
+      { include: '#token-and-scope' }
+    ]
+
+  id:
+    patterns: [
+      {
+        match: '^((@)[a-zA-Z0-9_\\-\\.]+)$'
+        name: 'id.ass'
+        captures:
           2: name: 'punctuation.ass'
+      }
+    ]
+
+  input:
+    patterns: [
+      {
+        match: '((["\'])(?:[^\\2]*)(?:\\2))\\s?(\\+)$'
+        name: 'input.ass'
+        captures:
+          1: patterns: [{ include: '#token' }]
+          3: name: 'punctuation.ass'
+      }
+      {
+        begin: '((["\'])(?:[^\\2]*)(?:\\2))\\s?(\\{)$'
+        end: '(\\})'
+        name: 'input.ass'
+        beginCaptures:
+          1: patterns: [{ include: '#token' }]
+          3: name: 'punctuation.ass'
+        endCaptures:
+          1: name: 'punctuation.ass'
         patterns: [
-          { include: '#scopes' }
-          { include: '#values' }
+          { include: '#group' }
         ]
       }
     ]
-  values:
+
+  scope:
+    patterns: [
+      match: '([a-zA-Z0-9\\-\\_]+)'
+      name: 'scope.ass'
+    ]
+
+  'scope-and-group':
     patterns: [
       {
-        match: '^\\s+((["\'])([^\\2]+)(\\2))(?:(:)\\s?(([a-z0-9\\.\\-]+)(\\.[a-z]+)))?$'
-        captures:
-          1: name: 'input.ass'
+        begin: '([a-zA-Z0-9\\-\\_\\.]+)\\s?(\\{)'
+        end: '(\\})'
+        beginCaptures:
+          1: patterns: [{ include: '#scope' }]
           2: name: 'punctuation.ass'
-          3:
-            name: 'value.ass'
-            patterns: [
-              {
-                match: '\\\\.'
-                name: 'escape.constant.ass'
-              }
-            ]
-          4: name: 'punctuation.ass'
-          5: name: 'punctuation.ass'
-          6: name: 'scope.ass'
-          8: name: 'domain.ass'
+        endCaptures:
+          1: name: 'punctuation.ass'
+        patterns: [
+          { include: '#group' }
+        ]
       }
+    ]
+
+  token:
+    patterns: [
+      match: '((["\'])([^\\2]*)(\\2))$'
+      captures:
+        1: name: 'token.ass'
+        2: name: 'punctuation.ass'
+        4: name: 'punctuation.ass'
+    ]
+
+  'token-and-scope':
+    patterns: [
+      match: '((["\'])([^\\2]*)(\\2)):\\s*([a-zA-Z0-9\\-\\_\\.]+)$'
+      captures:
+        1: patterns: [{ include: '#token' }]
+        5: patterns: [{ include: '#scope' }]
     ]
