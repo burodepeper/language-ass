@@ -16,10 +16,15 @@ repository:
   comment:
     patterns: [
       {
-        match: '^\\s*(#).*$'
+        begin: '^\\s*(?=#)'
+        end: '$'
         name: 'comment.ass'
-        captures:
-          1: name: 'punctuation.ass'
+        patterns: [
+          {
+            match: '^#'
+            name: 'punctuation.ass'
+          }
+        ]
       }
     ]
 
