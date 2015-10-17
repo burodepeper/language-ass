@@ -18,6 +18,56 @@
   }
 }
 
+@css
+"html, body {"+
+"  width: 100%; height: 100%;"+
+"}" {
+  source {
+    css {
+      "html, body" {
+        selectors {
+          "html": selector
+          ",": punctuation
+          " "
+          "body": selector
+        }
+      }
+      " "
+      block {
+        "{": punctuation
+        "width: 100%" {
+          declaration {
+            "width": property
+            ":": punctuation
+            " "
+            "100%" {
+              value {
+                "100"
+                "%": unit
+              }
+            }
+          }
+        }
+        " "
+        "height: 100%" {
+          declaration {
+            "height": property
+            ":": punctuation
+            " "
+            "100%" {
+              value {
+                "100"
+                "%": unit
+              }
+            }
+          }
+        }
+        "}": punctuation
+      }
+    }
+  }
+}
+
 # NOTE something, something
 @470
 "[![moon](moon.jpg)](/uri)" {

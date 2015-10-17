@@ -33,7 +33,7 @@ repository:
       { include: '#comment' }
       { include: '#input' }
       { include: '#scope-and-group' }
-      { include: '#token' }
+      { include: '#output' }
       { include: '#token-and-scope' }
     ]
 
@@ -93,6 +93,16 @@ repository:
       }
     ]
 
+  output:
+    patterns: [
+      name: 'output.ass'
+      match: '((["\'])([^\\2]*)(\\2))$'
+      captures:
+        1: name: 'token.ass'
+        2: name: 'punctuation.ass'
+        4: name: 'punctuation.ass'
+    ]
+
   token:
     patterns: [
       match: '((["\'])([^\\2]*)(\\2))$'
@@ -104,6 +114,7 @@ repository:
 
   'token-and-scope':
     patterns: [
+      name: 'output.ass'
       match: '((["\'])([^\\2]*)(\\2)):\\s*([a-zA-Z0-9\\-\\_\\.]+)$'
       captures:
         1: patterns: [{ include: '#token' }]
