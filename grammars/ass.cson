@@ -40,7 +40,8 @@ repository:
   id:
     patterns: [
       {
-        match: '^((@)[a-zA-Z0-9_\\-\\.]+)$'
+        # match: '^((@)[a-zA-Z0-9_\\-\\./]+)$'
+        match: '^((@).+)$'
         name: 'id.constant.ass'
         captures:
           2: name: 'punctuation.ass'
