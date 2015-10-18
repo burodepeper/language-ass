@@ -41,7 +41,7 @@ repository:
     patterns: [
       {
         match: '^((@)[a-zA-Z0-9_\\-\\.]+)$'
-        name: 'id.ass'
+        name: 'id.constant.ass'
         captures:
           2: name: 'punctuation.ass'
       }
@@ -74,7 +74,7 @@ repository:
   scope:
     patterns: [
       match: '([a-zA-Z0-9\\-\\_]+)'
-      name: 'scope.ass'
+      name: 'scope.keyword.ass'
     ]
 
   'scope-and-group':
@@ -107,7 +107,7 @@ repository:
     patterns: [
       match: '((["\'])([^\\2]*)(\\2))$'
       captures:
-        1: name: 'token.ass'
+        1: name: 'token.string.ass'
         2: name: 'punctuation.ass'
         4: name: 'punctuation.ass'
     ]
